@@ -1,9 +1,7 @@
 let productsInCart = [
   { productName: "banana", price: 33, ID: "456", quantity: 1 },
-  { productName: "orange", price: 15, ID: "123" },
+  { productName: "orange", price: 15, ID: "123", quantity: 1 },
 ];
-
-function calculateSum() {}
 
 $(function () {
   $.each(productsInCart, (i, products) => {
@@ -15,6 +13,9 @@ $(function () {
       .appendTo(productContainer);
     $("<p>")
       .html("ID: " + products.ID)
+      .appendTo(productContainer);
+    $("<p>")
+      .html("Quantity: " + products.quantity)
       .appendTo(productContainer);
 
     productContainer.appendTo($("body"));
