@@ -1,0 +1,36 @@
+#menu {
+  
+    background-color: rgb(255, 196, 0);
+}
+.highlighter {
+    background-image: url("background .jpg");
+    height: 30vh;
+    text-align: center;
+    line-height: 15vh;
+    
+}
+#exclaimation {
+    background-color: black;
+    margin-top: 7vh;
+    margin-bottom: 7vh;
+    width: 70%;
+    font-size: 80px;
+    color: rgb(255, 196, 0);
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 0.6;
+}
+#footercontent{
+    height: 20%;
+    background-color: rgb(245, 149, 23);
+}
+.productList{
+    background-color:rgb(250, 214, 56);
+    
+
+}
+.minicard{
+    background-color:rgb(250, 214, 56);
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
