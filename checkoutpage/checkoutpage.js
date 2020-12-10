@@ -58,7 +58,7 @@ function subtractQuantity(event) {
 //Window onload function with all productinformation.
 //Looping through the array to create the products
 $(function () {
-  let productContainer = $("<div>").attr("id", "productSummaryContainer");
+  let productContainer = $("#productcontainer");
   $.each(productsInCart, (i, product) => {
     console.log(product);
 
@@ -117,6 +117,4 @@ $(function () {
   let sum = renderSum();
 
   $("#sum").html(sum).appendTo(productContainer);
-
-  productContainer.appendTo($("body"));
 });
