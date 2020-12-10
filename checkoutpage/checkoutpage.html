@@ -16,17 +16,28 @@
     <div id="productcontainer">
       <h3 id="sum">0</h3>
     </div>
-    <div id="contactform">
-      <label for="fname">First name</label>
-      <input type="text" name="fname" />
-      <label for="lname">Last name</label>
-      <input type="text" name="lname" />
-      <label for="adress">Adress</label>
-      <input type="text" name="adress" />
-      <label for="phone">Phone Number</label>
-      <input type="tel" name="phone" />
-      <label for="email">Email</label>
-      <input type="email" name="email" />
-    </div>
+    <form>
+      <div id="contactform">
+        <h3>Contact information</h3>
+        <label for="fname">First name</label>
+        <input type="text" name="fname" />
+        <label for="lname">Last name</label>
+        <input type="text" name="lname" />
+        <label for="adress">Adress</label>
+        <input type="text" name="adress" />
+        <label for="phone">Phone Number</label>
+        <input type="tel" name="phone" />
+        <label for="email">Email</label>
+        <input type="email" name="email" />
+      </div>
+      <div id="paymentmethod">
+        <h3>Payment method</h3>
+        <label for="paylater">Buy now, pay later!</label>
+        <input type="radio" name="paylater" />
+      </div>
+      <div id="submitbutton">
+        <button type="submit">Order</button>
+      </div>
+    </form>
   </body>
 </html>
