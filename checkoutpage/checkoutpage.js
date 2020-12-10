@@ -24,7 +24,10 @@ function calculateProductSum(product) {
   return productSum;
 }
 
-function renderSum() {}
+function renderSum() {
+  totalSum = calculateTotalPrice();
+  $("#sum").html(totalSum);
+}
 
 function addQuantity() {}
 
@@ -38,6 +41,7 @@ function subtractQuantity(event) {
     let productSum = calculateProductSum(event.data.product);
 
     event.data.price[0].textContent = productSum;
+    renderSum();
   }
 }
 
@@ -92,11 +96,9 @@ $(function () {
       .on("click", addQuantity);
   });
 
-  let sum = calculateTotalPrice();
+  let sum = renderSum();
 
-  $("<h3>")
-    .html("Sum: " + sum)
-    .appendTo(productContainer);
+  $("#sum").html(sum).appendTo(productContainer);
 
   productContainer.appendTo($("body"));
 });
