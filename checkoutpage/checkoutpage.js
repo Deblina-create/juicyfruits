@@ -18,17 +18,18 @@ function calculateTotalPrice() {
   return totalSum;
 }
 
-//Function to calculate total price of everything in each individual product object in cart
+//Function to calculate total price of quantities of individual product object in cart
 function calculateProductSum(product) {
   let productSum = product.price * product.quantity;
   return productSum;
 }
-
+//Function to render a new total sum on load or when the quantities are changed. This is connected to the sum tag in the HTML
 function renderSum() {
   totalSum = calculateTotalPrice();
   $("#sum").html(totalSum);
 }
-
+//Event is triggered when + button is clicked. Adds 1 to the quantity from the input field and to the array.
+//Also triggers events that update the sums
 function addQuantity(event) {
   let totalQuantity = event.data.product.quantity + 1;
   event.data.product.quantity = totalQuantity;
@@ -39,7 +40,7 @@ function addQuantity(event) {
   event.data.price[0].textContent = productSum;
   renderSum();
 }
-
+//Same as above, but is triggered when - button is clicked and subtracts instead
 function subtractQuantity(event) {
   let totalQuantity = event.data.product.quantity - 1;
 
@@ -54,7 +55,8 @@ function subtractQuantity(event) {
   }
 }
 
-//Window onload function with all productinformation
+//Window onload function with all productinformation.
+//Looping through the array to create the products
 $(function () {
   let productContainer = $("<div>").attr("id", "productSummaryContainer");
   $.each(productsInCart, (i, product) => {
@@ -111,7 +113,7 @@ $(function () {
         addQuantity
       );
   });
-
+  //Adding the constant elements that does not need to be looped
   let sum = renderSum();
 
   $("#sum").html(sum).appendTo(productContainer);
