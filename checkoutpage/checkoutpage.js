@@ -29,7 +29,16 @@ function renderSum() {
   $("#sum").html(totalSum);
 }
 
-function addQuantity() {}
+function addQuantity(event) {
+  let totalQuantity = event.data.product.quantity + 1;
+  event.data.product.quantity = totalQuantity;
+  event.data.input[0].value = totalQuantity;
+
+  let productSum = calculateProductSum(event.data.product);
+
+  event.data.price[0].textContent = productSum;
+  renderSum();
+}
 
 function subtractQuantity(event) {
   let totalQuantity = event.data.product.quantity - 1;
@@ -63,7 +72,7 @@ $(function () {
     $("<p>")
       .html(" SEK. " + product.price + " pp")
       .appendTo(productContainer);
-    let idElement = $("<p>").html(product.ID).appendTo(productContainer);
+    $("<p>").html(product.ID).appendTo(productContainer);
     $("<p>")
       .html("Quantity: " + product.quantity)
       .appendTo(productContainer);
@@ -84,7 +93,6 @@ $(function () {
           product: product,
           input: inputElement,
           price: priceElement,
-          id: idElement,
         },
         subtractQuantity
       );
@@ -93,7 +101,15 @@ $(function () {
       .attr({ type: "button", id: "add" })
       .text("+")
       .appendTo(productContainer)
-      .on("click", addQuantity);
+      .on(
+        "click",
+        {
+          product: product,
+          input: inputElement,
+          price: priceElement,
+        },
+        addQuantity
+      );
   });
 
   let sum = renderSum();
