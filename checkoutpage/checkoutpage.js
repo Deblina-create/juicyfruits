@@ -8,16 +8,37 @@ let productsInCart = [
 //Function to calculate total price of everything in cart.
 function calculateTotalPrice() {
   let totalSum = 0;
+
   $.each(productsInCart, (i, product) => {
-    let productsSum = calculateProductSum(product);
+    productsSum = calculateProductSum(product);
+
     totalSum = totalSum + productsSum;
   });
+
   return totalSum;
 }
+
 //Function to calculate total price of everything in each individual product object in cart
 function calculateProductSum(product) {
   let productSum = product.price * product.quantity;
   return productSum;
+}
+
+function renderSum() {}
+
+function addQuantity() {}
+
+function subtractQuantity(event) {
+  let totalQuantity = event.data.product.quantity - 1;
+
+  if (totalQuantity > 0) {
+    event.data.product.quantity = totalQuantity;
+    event.data.input[0].value = totalQuantity;
+
+    let productSum = calculateProductSum(event.data.product);
+
+    event.data.price[0].textContent = productSum;
+  }
 }
 
 //Window onload function with all productinformation
@@ -28,24 +49,47 @@ $(function () {
 
     $("<h2>").html(product.productName).appendTo(productContainer);
 
-    $("<p>")
-      .html(
-        "Price: " +
-          calculateProductSum(product) +
-          " SEK. " +
-          product.price +
-          " pp"
-      )
+    let priceElementContainer = $("<p>")
+      .html("Price: ")
       .appendTo(productContainer);
+    let priceElement = $("<span>")
+      .html(calculateProductSum(product))
+      .addClass("price")
+      .appendTo(priceElementContainer);
     $("<p>")
-      .html("ID: " + product.ID)
+      .html(" SEK. " + product.price + " pp")
       .appendTo(productContainer);
+    let idElement = $("<p>").html(product.ID).appendTo(productContainer);
     $("<p>")
       .html("Quantity: " + product.quantity)
       .appendTo(productContainer);
-    $("<p>")
-      .html("Sum: " + calculateProductSum(product))
+
+    let inputElement = $("<input>")
+      .attr("type", "number")
+      .val(product.quantity)
+
       .appendTo(productContainer);
+
+    $("<button>")
+      .attr({ type: "button", id: "sub" })
+      .text("-")
+      .appendTo(productContainer)
+      .on(
+        "click",
+        {
+          product: product,
+          input: inputElement,
+          price: priceElement,
+          id: idElement,
+        },
+        subtractQuantity
+      );
+
+    $("<button>")
+      .attr({ type: "button", id: "add" })
+      .text("+")
+      .appendTo(productContainer)
+      .on("click", addQuantity);
   });
 
   let sum = calculateTotalPrice();
