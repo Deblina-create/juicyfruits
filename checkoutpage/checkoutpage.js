@@ -82,7 +82,7 @@ $(function () {
     let inputElement = $("<input>")
       .attr("type", "number")
       .val(product.quantity)
-
+      .on("keydown", false)
       .appendTo(productContainer);
 
     $("<button>")
