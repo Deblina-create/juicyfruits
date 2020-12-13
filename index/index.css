@@ -1,23 +1,22 @@
 #menu {
-  
+    
     background-color: rgb(255, 196, 0);
 }
 .highlighter {
     background-image: url("background .jpg");
     height: 30vh;
-    text-align: center;
-    line-height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
 }
 #exclaimation {
     background-color: black;
-    margin-top: 7vh;
-    margin-bottom: 7vh;
-    width: 70%;
-    font-size: 80px;
+    font-size: 60px;
     color: rgb(255, 196, 0);
+    text-align: center;
     display: inline-block;
-    vertical-align: middle;
+    padding: 1rem;
     opacity: 0.6;
 }
 #footercontent{
@@ -30,6 +29,7 @@
 
 }
 .minicard{
+    border-color:rgb(250, 214, 56);
     background-color:rgb(250, 214, 56);
     margin-top: 5vh;
     margin-bottom: 5vh;
