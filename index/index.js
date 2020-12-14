@@ -3,7 +3,7 @@ let pageSize = 3;
 
 
 
-
+// defining the classes for both the objects
 
 class Fruit{
     constructor(image, name, price, description, index, id,){
@@ -23,8 +23,8 @@ class CartItem{
       
  }
 }
-// make all objects in local storage 
-//make an array of the objects for the local storage to access
+// make all fruit objects in local storage 
+//make an array of the fruit objects for the local storage to access
 
 
 
@@ -58,7 +58,7 @@ let fruitList = [
          id:201
        },
        {
-         image: {url:"images/apple.jpg", text:"imgtext"}, 
+         image: {url:"images/apple1.jpg", text:"imgtext"}, 
          name: "Apple",
          price: "29 sek/kg",
          description: "rich in vitamin C",
@@ -73,77 +73,75 @@ let fruitList = [
        },
        { 
         image: {url:"images/dragonfruit.jpg", text:"imgtext"},
-        name: "Strawberry",
+        name: "Dragon Fruit",
         price: "49 sek/kg",
         description: "rich in vitamin C",
         id:301
       },
       { 
         image: {url:"images/kiwi.jpg", text:"imgtext"},
-        name: "Strawberry",
+        name: "kiwi",
         price: "49 sek/kg",
         description: "rich in vitamin C",
         id:302
       },
       { 
         image: {url:"images/pomegranate.jpg", text:"imgtext"},
-        name: "Strawberry",
-        price: "49 sek/kg",
+        name: "Pomegranate",
+        price: "55 sek/kg",
         description: "rich in vitamin C",
         id:303
       },
       { 
-        image: {url:"images/pomegranate.jpg", text:"imgtext"},
-        name: "Strawberry1",
-        price: "49 sek/kg",
+        image: {url:"images/avocado.jpg", text:"imgtext"},
+        name: "Avocado",
+        price: "79 sek/kg",
         description: "rich in vitamin C",
         id:304
       }
     ];
 
 
-//(write a function with if else to make sure it loads only once )
-
-//access the array in local storage using ...getItem
-
-
-
 
 $(document).ready(function(){
 
-    /*console.log(localStorage.getItem("firstLoadFlag"));
-    if(!localStorage.getItem("firstLoadFlag")){
-        //execute first time
-        localStorage.setItem("fruitsInStore",fruits)
-        localStorage.setItem("firstLoadFlag", true);
-    } 
-    else
-    {
-        console.log("Inside else");
-    }*/
+ //this calls the loadAllFruits function that loads all the fruit objects 
 
-    $("#cartBadge").css("display", "none");
     loadAllFruits();
-    
+
+     //logic for pagination 
+
     $("#showMore").on("click", function(){
       let currentPageIndex = parseInt(JSON.parse(localStorage.getItem("currentPageIndex")));
       if((currentPageIndex + 1) * pageSize <= fruitList.length){
         currentPageIndex++;
         localStorage.setItem("currentPageIndex", JSON.stringify(currentPageIndex));
         loadAllFruits();
+
+        //this is for show more button to disappear once it reaches the last page
+
         if((currentPageIndex + 1) * pageSize > fruitList.length){
           $("#showMore").css("display", "none");
         }
       }
-      else{
-        
-      }
       
     });
+   // this shows the fruit quantity in the cart when the page is refreshed
 
-   
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    if(cart && cart.length > 0){
+      $("#cartBadge").html(cart.length);
+      $("#cartBadge").css("display", "inline");
+    }
+    else
+    {
+      $("#cartBadge").html("");
+      $("#cartBadge").css("display", "none");
+    }
 
 });
+
+// this empties the fruit objects from loalstorage when the page is closed
 
 window.onbeforeunload = function(e) {
   let currentPageIndex = JSON.parse(localStorage.getItem("currentPageIndex"));
@@ -151,6 +149,8 @@ window.onbeforeunload = function(e) {
     localStorage.removeItem("currentPageIndex");
   }
 };
+
+//from here starts all the funtion(definations)
   
 // create card for each fruit
 
@@ -176,9 +176,7 @@ function createCard(fruit){
 function loadAllFruits(){
   $(".productList .container .row").empty();
   let currentPageIndex = JSON.parse(localStorage.getItem("currentPageIndex"));
-  console.log("Current Page Index");
-  console.log(currentPageIndex);
-    
+ 
   if (!currentPageIndex){
     
     currentPageIndex = 0;
@@ -206,9 +204,6 @@ function loadAllFruits(){
         addToCart(cartItem);
         $(this).siblings( ".quantity" ).val(1);
       }
-    
-
-      
     });
 }
 
@@ -222,6 +217,9 @@ function addToCart(cartItem){
   let fruitIndex = cart.findIndex(function(cartIteInArray){
     return cartIteInArray.fruit.id === cartItem.fruit.id;
   });
+
+  //this is to make sure not to add the same fruit object again. instead only change the quantity of the object
+
   if (fruitIndex == -1){
     cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -232,19 +230,25 @@ function addToCart(cartItem){
     localStorage.setItem("cart", JSON.stringify(cart));
 
   }
+
+  //this only to display the number of objects in the badge
+
   if(cart.length > 0){
-    console.log(cart.length);
     $("#cartBadge").html(cart.length);
     $("#cartBadge").css("display", "inline");
   }
-
+  else
+  {
+    $("#cartBadge").html("");
+    $("#cartBadge").css("display", "none");
+  }
 
 }
 
 
-//update cart quantity on add to cart
+//......yet to be done .......
 //activate search option with fulltext search
-//pagination
+//make the page responsive 
 //redirect to cart page
 
 
