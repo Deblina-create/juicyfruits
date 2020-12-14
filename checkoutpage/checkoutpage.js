@@ -26,7 +26,7 @@ function calculateProductSum(product) {
 //Function to render a new total sum on load or when the quantities are changed. This is connected to the sum tag in the HTML
 function renderSum() {
   totalSum = calculateTotalPrice();
-  $("#sum").html(totalSum);
+  $("#sum").html("Sum: " + totalSum);
 }
 //Event is triggered when + button is clicked. Adds 1 to the quantity from the input field and to the array.
 //Also triggers events that update the sums
@@ -91,20 +91,17 @@ function renderProducts() {
 
     $("<h2>").html(product.productName).appendTo(productContainer);
 
-    let priceElementContainer = $("<p>")
+    let priceElementContainer = $("<span>")
       .html("Price: ")
       .appendTo(productContainer);
     let priceElement = $("<span>")
       .html(calculateProductSum(product))
       .addClass("price")
       .appendTo(priceElementContainer);
-    $("<p>")
+    $("span")
       .html(" SEK. " + product.price + " pp")
       .appendTo(productContainer);
     $("<p>").html(product.ID).appendTo(productContainer);
-    $("<p>")
-      .html("Quantity: " + product.quantity)
-      .appendTo(productContainer);
 
     let inputElement = $("<input>")
       .attr("type", "number")
@@ -145,7 +142,5 @@ function renderProducts() {
 //Window onload function
 $(function () {
   renderProducts();
-  let sum = renderSum();
-
-  $("#sum").html(sum);
+  renderSum();
 });
