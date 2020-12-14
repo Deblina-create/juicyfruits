@@ -60,6 +60,8 @@ function removeProduct(product) {
 
   console.log(pos);
   productsInCart.splice(pos, 1);
+
+  renderProducts();
 }
 
 //Same as above, but is triggered when - button is clicked and subtracts instead
@@ -79,10 +81,9 @@ function subtractQuantity(event) {
   }
 }
 
-//Window onload function with all productinformation.
-//Looping through the array to create the products
-$(function () {
+function renderProducts() {
   let productContainer = $("#productcontainer");
+  $(productcontainer).empty();
   $.each(productsInCart, (i, product) => {
     console.log(product);
 
@@ -137,7 +138,13 @@ $(function () {
         addQuantity
       );
   });
-  //Adding the constant elements that does not need to be looped
+}
+
+//Window onload function with all productinformation.
+//Looping through the array to create the products
+$(function () {
+  let productContainer = $("#productcontainer");
+  renderProducts();
   let sum = renderSum();
 
   $("#sum").html(sum).appendTo(productContainer);
