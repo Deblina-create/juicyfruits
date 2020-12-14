@@ -40,11 +40,33 @@ function addQuantity(event) {
   event.data.price[0].textContent = productSum;
   renderSum();
 }
+
+function alertBox(product) {
+  if (confirm("Do you want to remove the product from your cart?")) {
+    removeProduct(product);
+  } else {
+  }
+}
+
+function removeProduct(product) {
+  let productID = product.ID;
+  console.log(productID);
+
+  let pos = productsInCart
+    .map(function (e) {
+      return e.ID;
+    })
+    .indexOf(productID);
+
+  console.log(pos);
+  productsInCart.splice(pos, 1);
+}
+
 //Same as above, but is triggered when - button is clicked and subtracts instead
 function subtractQuantity(event) {
   let totalQuantity = event.data.product.quantity - 1;
 
-  if (totalQuantity > 0) {
+  if (totalQuantity >= 1) {
     event.data.product.quantity = totalQuantity;
     event.data.input[0].value = totalQuantity;
 
@@ -52,6 +74,8 @@ function subtractQuantity(event) {
 
     event.data.price[0].textContent = productSum;
     renderSum();
+  } else {
+    alertBox(event.data.product);
   }
 }
 
