@@ -62,6 +62,7 @@ function removeProduct(product) {
   productsInCart.splice(pos, 1);
 
   renderProducts();
+  renderSum();
 }
 
 //Same as above, but is triggered when - button is clicked and subtracts instead
@@ -81,6 +82,7 @@ function subtractQuantity(event) {
   }
 }
 
+//A function which renders the products that are currently in the array
 function renderProducts() {
   let productContainer = $("#productcontainer");
   $(productcontainer).empty();
@@ -140,12 +142,10 @@ function renderProducts() {
   });
 }
 
-//Window onload function with all productinformation.
-//Looping through the array to create the products
+//Window onload function
 $(function () {
-  let productContainer = $("#productcontainer");
   renderProducts();
   let sum = renderSum();
 
-  $("#sum").html(sum).appendTo(productContainer);
+  $("#sum").html(sum);
 });
