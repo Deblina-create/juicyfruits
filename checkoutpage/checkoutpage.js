@@ -3,11 +3,6 @@
 let productsInCart = JSON.parse(localStorage.getItem("cart"));
 console.log(productsInCart);
 
-/* let productsInCart = [
-  { name: "banana", price: 33, id: "456", quantity: 3 },
-  { name: "orange", price: 15, id: "123", quantity: 2 },
-]; */
-
 //Function to calculate total price of everything in cart.
 function calculateTotalPrice() {
   let totalSum = 0;
@@ -52,12 +47,12 @@ function alertBox(product) {
 }
 
 function removeProduct(product) {
-  let productID = product.id;
+  let productID = product.fruit.id;
   console.log(productID);
 
   let pos = productsInCart
     .map(function (e) {
-      return e.id;
+      return e.fruit.id;
     })
     .indexOf(productID);
 
@@ -66,6 +61,10 @@ function removeProduct(product) {
 
   renderProducts();
   renderSum();
+}
+
+function renderID(event) {
+  alertBox(event.data.product);
 }
 
 //Same as above, but is triggered when - button is clicked and subtracts instead
@@ -142,12 +141,22 @@ function renderProducts() {
         },
         addQuantity
       );
+    $("<i>").attr("class", "fas fa-trash-alt").appendTo(productContainer).on(
+      "click",
+      {
+        product: product,
+      },
+      renderID
+    );
   });
+}
+function clearLS() {
+  localStorage.clear();
 }
 
 //Window onload function
 $(function () {
   renderProducts();
   renderSum();
-  $("#orderbutton").on("click", localStorage.clear());
+  $("#orderbutton").on("click", clearLS);
 });
