@@ -1,9 +1,12 @@
 //Temporary array with products. Awaiting Local storage setup i cart
 
-let productsInCart = [
-  { productName: "banana", price: 33, ID: "456", quantity: 3 },
-  { productName: "orange", price: 15, ID: "123", quantity: 2 },
-];
+let productsInCart = JSON.parse(localStorage.getItem("cart"));
+console.log(productsInCart);
+
+/* let productsInCart = [
+  { name: "banana", price: 33, id: "456", quantity: 3 },
+  { name: "orange", price: 15, id: "123", quantity: 2 },
+]; */
 
 //Function to calculate total price of everything in cart.
 function calculateTotalPrice() {
@@ -20,7 +23,7 @@ function calculateTotalPrice() {
 
 //Function to calculate total price of quantities of individual product object in cart
 function calculateProductSum(product) {
-  let productSum = product.price * product.quantity;
+  let productSum = product.fruit.price * product.quantity;
   return productSum;
 }
 //Function to render a new total sum on load or when the quantities are changed. This is connected to the sum tag in the HTML
@@ -49,12 +52,12 @@ function alertBox(product) {
 }
 
 function removeProduct(product) {
-  let productID = product.ID;
+  let productID = product.id;
   console.log(productID);
 
   let pos = productsInCart
     .map(function (e) {
-      return e.ID;
+      return e.id;
     })
     .indexOf(productID);
 
@@ -88,8 +91,8 @@ function renderProducts() {
   $(productcontainer).empty();
   $.each(productsInCart, (i, product) => {
     console.log(product);
-
-    $("<h2>").html(product.productName).appendTo(productContainer);
+    $("<img>").attr("src", product.fruit.image.url).appendTo(productContainer);
+    $("<h2>").html(product.fruit.name).appendTo(productContainer);
 
     let priceElementContainer = $("<span>")
       .html("Price: ")
@@ -98,10 +101,13 @@ function renderProducts() {
       .html(calculateProductSum(product))
       .addClass("price")
       .appendTo(priceElementContainer);
-    $("span")
-      .html(" SEK. " + product.price + " pp")
+    $("<span>")
+      .html(" sek. " + product.fruit.price + " sek/kg")
       .appendTo(productContainer);
-    $("<p>").html(product.ID).appendTo(productContainer);
+
+    $("<p>")
+      .html("Product ID: " + product.fruit.id)
+      .appendTo(productContainer);
 
     let inputElement = $("<input>")
       .attr("type", "number")
@@ -143,4 +149,5 @@ function renderProducts() {
 $(function () {
   renderProducts();
   renderSum();
+  $("#orderbutton").on("click", localStorage.clear());
 });
