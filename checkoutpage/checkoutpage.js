@@ -24,7 +24,7 @@ function calculateProductSum(product) {
 //Function to render a new total sum on load or when the quantities are changed. This is connected to the sum tag in the HTML
 function renderSum() {
   totalSum = calculateTotalPrice();
-  $("#sum").html("Sum: " + totalSum);
+  $("#sum").html("Total sum: " + totalSum);
 }
 //Event is triggered when + button is clicked. Adds 1 to the quantity from the input field and to the array.
 //Also triggers events that update the sums
@@ -90,34 +90,57 @@ function renderProducts() {
   $(productcontainer).empty();
   $.each(productsInCart, (i, product) => {
     console.log(product);
-    $("<img>").attr("src", product.fruit.image.url).appendTo(productContainer);
-    $("<h2>").html(product.fruit.name).appendTo(productContainer);
 
-    let priceElementContainer = $("<span>")
-      .html("Price: ")
+    let productWrapper = $("<div>")
+      .attr({ id: "productwrapper" })
+      .addClass("row")
       .appendTo(productContainer);
+
+    let imgWrapper = $("<div>")
+      .attr({ id: "imgwrapper" })
+      .addClass("col-4")
+      .appendTo(productWrapper);
+
+    $("<img>").attr("src", product.fruit.image.url).appendTo(imgWrapper);
+
+    let detailsWrapper = $("<div>")
+      .attr({ id: "detailswrapper" })
+      .addClass("col-7")
+      .appendTo(productWrapper);
+
+    $("<p>").html(product.fruit.name).appendTo(detailsWrapper);
+
+    let priceElementContainer = $("<p>")
+      .html("Price: ")
+      .appendTo(detailsWrapper);
     let priceElement = $("<span>")
       .html(calculateProductSum(product))
       .addClass("price")
       .appendTo(priceElementContainer);
     $("<span>")
       .html(" sek. " + product.fruit.price + " sek/kg")
-      .appendTo(productContainer);
+      .appendTo(priceElementContainer);
 
     $("<p>")
       .html("Product ID: " + product.fruit.id)
-      .appendTo(productContainer);
+      .appendTo(detailsWrapper);
+
+    let inputWrapper = $("<div>")
+      .attr({ id: "inputwrapper" })
+
+      .appendTo(detailsWrapper);
 
     let inputElement = $("<input>")
-      .attr("type", "number")
+      .attr({ type: "number", id: "quantityinput" })
       .val(product.quantity)
       .on("keydown", false)
-      .appendTo(productContainer);
+      .appendTo(inputWrapper);
 
     $("<button>")
       .attr({ type: "button", id: "sub" })
       .text("-")
-      .appendTo(productContainer)
+      .appendTo(inputWrapper)
+      .insertBefore(inputElement)
       .on(
         "click",
         {
@@ -131,7 +154,7 @@ function renderProducts() {
     $("<button>")
       .attr({ type: "button", id: "add" })
       .text("+")
-      .appendTo(productContainer)
+      .appendTo(inputWrapper)
       .on(
         "click",
         {
@@ -141,7 +164,13 @@ function renderProducts() {
         },
         addQuantity
       );
-    $("<i>").attr("class", "fas fa-trash-alt").appendTo(productContainer).on(
+
+    let trashWrapper = $("<div>")
+      .attr({ id: "trashwrapper" })
+      .addClass("col-1")
+      .appendTo(productWrapper);
+
+    $("<i>").attr("class", "fas fa-trash-alt").appendTo(trashWrapper).on(
       "click",
       {
         product: product,

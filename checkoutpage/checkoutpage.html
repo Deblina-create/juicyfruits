@@ -27,44 +27,59 @@
   </head>
   <body>
     <div class="container">
-      <div id="checkouttitle" class="col-12">
-        <h2>Checkout page</h2>
+      <div class="headlines" class="col-12">
+        <p>Checkout</p>
       </div>
       <div id="productcontainer"></div>
       <h5 id="sum"></h5>
+      <div class="headlines" class="col-12">
+        <p>Contact information</p>
+      </div>
       <form>
         <div id="contactform">
-          <h3>Contact information</h3>
-
           <div class="col">
-            <label for="fname">First name</label>
+            <label class="text" for="fname">First name</label>
+          </div>
+          <div class="col">
             <input type="text" name="fname" />
           </div>
           <div class="col">
-            <label for="lname">Last name</label>
+            <label class="text" for="lname">Last name</label>
+          </div>
+          <div class="col">
             <input type="text" name="lname" />
           </div>
 
           <div class="col">
-            <label for="adress">Adress</label>
+            <label class="text" for="adress">Adress</label>
+          </div>
+          <div class="col">
             <input type="text" name="adress" />
           </div>
           <div class="col">
-            <label for="phone">Phone Number</label>
+            <label class="text" for="phone">Phone Number</label>
+          </div>
+          <div class="col">
             <input type="tel" name="phone" />
           </div>
           <div class="col">
-            <label for="email">Email</label>
+            <label class="text" for="email">Email</label>
+          </div>
+          <div class="col">
             <input type="email" name="email" />
           </div>
         </div>
         <div id="paymentmethod">
-          <h3 class="col-12">Payment method</h3>
-          <label for="paylater">Buy now, pay later!</label>
+          <div class="headlines" class="col-12">
+            <p>Payment method</p>
+          </div>
           <input type="radio" name="paylater" />
+          <label class="text" for="paylater">Buy now, pay later!</label>
         </div>
         <div id="submitbutton">
-          <button type="submit" id="orderbutton">Order</button>
+          <button class="text" type="submit" id="orderbutton">
+            Place Order
+          </button>
         </div>
       </form>
     </div>
