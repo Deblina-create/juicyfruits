@@ -117,7 +117,10 @@ function renderProducts() {
       .addClass("col-7")
       .appendTo(productWrapper);
 
-    $("<p>").html(product.fruit.name).appendTo(detailsWrapper);
+    $("<p>")
+      .html(product.fruit.name)
+      .attr("id", "productname")
+      .appendTo(detailsWrapper);
 
     $("<p>")
       .html("Product ID: " + product.fruit.id)
@@ -190,7 +193,11 @@ function renderProducts() {
 
 //Function for clearing Local storage when order is made
 function clearLS() {
-  localStorage.clear();
+  if (localStorage.getItem("cart") === null) {
+    alert("Your cart is empty");
+  } else {
+    localStorage.clear();
+  }
 }
 
 //Window onload function
