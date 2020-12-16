@@ -196,8 +196,8 @@ function placeOrder() {
   if (localStorage.getItem("cart") === null) {
     alert("Your cart is empty");
   } else {
-    window.location.href = "../thankyoupage/thankyoupage.html";
     localStorage.clear();
+    window.location.href = "../thankyoupage/thankyoupage.html";
   }
 }
 

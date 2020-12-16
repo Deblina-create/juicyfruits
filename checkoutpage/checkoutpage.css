@@ -1,8 +1,13 @@
 body {
-  background-color: rgb(245, 149, 23);
-}
-.container {
   background-color: rgb(250, 214, 56);
+}
+.container-fluid {
+  background-color: rgb(250, 214, 56);
+  padding: 0%;
+}
+
+#menu {
+  background-color: rgb(255, 196, 0);
 }
 
 #productwrapper {
@@ -43,7 +48,10 @@ img {
 
 #trashwrapper > i {
   font-size: 1em;
+  display: flex;
+  justify-content: center;
 }
+
 #trashwrapper > i:hover {
   cursor: pointer;
 }
