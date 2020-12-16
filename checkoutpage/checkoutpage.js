@@ -1,4 +1,4 @@
-//Temporary array with products. Awaiting Local storage setup i cart
+//Get cart from Local storage
 
 let productsInCart = JSON.parse(localStorage.getItem("cart"));
 console.log(productsInCart);
@@ -32,20 +32,19 @@ function addQuantity(event) {
   let totalQuantity = event.data.product.quantity + 1;
   event.data.product.quantity = totalQuantity;
   event.data.input[0].value = totalQuantity;
-
   let productSum = calculateProductSum(event.data.product);
-
   event.data.price[0].textContent = productSum;
   renderSum();
 }
 
+//Alertbox that is triggered when product is to be removed
 function alertBox(product) {
   if (confirm("Do you want to remove the product from your cart?")) {
     removeProduct(product);
   } else {
   }
 }
-
+//Function for removing products
 function removeProduct(product) {
   let productID = product.fruit.id;
   console.log(productID);
@@ -63,6 +62,7 @@ function removeProduct(product) {
   renderSum();
 }
 
+//Function to render the ID of the product
 function renderID(event) {
   alertBox(event.data.product);
 }
@@ -86,16 +86,22 @@ function subtractQuantity(event) {
 
 //A function which renders the products that are currently in the array
 function renderProducts() {
+  //Productcontainer for all information about all products in Local storage
   let productContainer = $("#productcontainer");
+
+  //Make sure that the productscontainer is empty before rendering products
   $(productcontainer).empty();
+
   $.each(productsInCart, (i, product) => {
     console.log(product);
 
+    //Create a wrapper for each individual product. For styling.
     let productWrapper = $("<div>")
       .attr({ id: "productwrapper" })
       .addClass("row")
       .appendTo(productContainer);
 
+    //Wrapper for productimage. For styling
     let imgWrapper = $("<div>")
       .attr({ id: "imgwrapper" })
       .addClass("col-4")
@@ -103,6 +109,7 @@ function renderProducts() {
 
     $("<img>").attr("src", product.fruit.image.url).appendTo(imgWrapper);
 
+    //Wrapper for productdetails. For styling
     let detailsWrapper = $("<div>")
       .attr({ id: "detailswrapper" })
       .addClass("col-7")
@@ -125,9 +132,9 @@ function renderProducts() {
       .html("Product ID: " + product.fruit.id)
       .appendTo(detailsWrapper);
 
+    //Wrapper for the quantityinput with buttons
     let inputWrapper = $("<div>")
       .attr({ id: "inputwrapper" })
-
       .appendTo(detailsWrapper);
 
     let inputElement = $("<input>")
@@ -165,6 +172,7 @@ function renderProducts() {
         addQuantity
       );
 
+    //Wrapper for the trashcan. For styling
     let trashWrapper = $("<div>")
       .attr({ id: "trashwrapper" })
       .addClass("col-1")
@@ -179,6 +187,8 @@ function renderProducts() {
     );
   });
 }
+
+//Function for clearing Local storage when order is made
 function clearLS() {
   localStorage.clear();
 }
