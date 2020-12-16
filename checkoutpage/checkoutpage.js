@@ -32,6 +32,7 @@ function addQuantity(event) {
   let totalQuantity = event.data.product.quantity + 1;
   event.data.product.quantity = totalQuantity;
   event.data.input[0].value = totalQuantity;
+  localStorage.setItem("cart", JSON.stringify(productsInCart));
   let productSum = calculateProductSum(event.data.product);
   event.data.price[0].textContent = productSum;
   renderSum();
@@ -57,6 +58,7 @@ function removeProduct(product) {
 
   console.log(pos);
   productsInCart.splice(pos, 1);
+  localStorage.setItem("cart", JSON.stringify(productsInCart));
 
   renderProducts();
   renderSum();
@@ -74,7 +76,7 @@ function subtractQuantity(event) {
   if (totalQuantity >= 1) {
     event.data.product.quantity = totalQuantity;
     event.data.input[0].value = totalQuantity;
-
+    localStorage.setItem("cart", JSON.stringify(productsInCart));
     let productSum = calculateProductSum(event.data.product);
 
     event.data.price[0].textContent = productSum;
