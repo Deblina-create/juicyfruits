@@ -192,10 +192,11 @@ function renderProducts() {
 }
 
 //Function for clearing Local storage when order is made
-function clearLS() {
+function placeOrder() {
   if (localStorage.getItem("cart") === null) {
     alert("Your cart is empty");
   } else {
+    window.location.href = "../thankyoupage/thankyoupage.html";
     localStorage.clear();
   }
 }
@@ -204,5 +205,5 @@ function clearLS() {
 $(function () {
   renderProducts();
   renderSum();
-  $("#orderbutton").on("click", clearLS);
+  $("#orderbutton").on("click", placeOrder);
 });

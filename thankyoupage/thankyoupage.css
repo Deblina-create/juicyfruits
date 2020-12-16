@@ -1,0 +1,11 @@
+body {
+  background-color: rgb(245, 149, 23);
+}
+.thankyou {
+  background-color: rgb(250, 214, 56);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
