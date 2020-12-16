@@ -36,45 +36,55 @@
         <p>Contact information</p>
       </div>
       <form>
-        <div id="contactform">
-          <div class="col">
-            <label class="text" for="fname">First name</label>
+        <div id="contactform" class="row">
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="fname">First name</label>
+            </div>
+            <div class="col-12">
+              <input type="text" name="fname" />
+            </div>
           </div>
-          <div class="col">
-            <input type="text" name="fname" />
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="lname">Last name</label>
+            </div>
+            <div class="col-12">
+              <input type="text" name="lname" />
+            </div>
           </div>
-          <div class="col">
-            <label class="text" for="lname">Last name</label>
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="email">Email</label>
+            </div>
+            <div class="col-12">
+              <input type="email" name="email" />
+            </div>
           </div>
-          <div class="col">
-            <input type="text" name="lname" />
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="phone">Phone Number</label>
+            </div>
+            <div class="col-12">
+              <input type="tel" name="phone" />
+            </div>
           </div>
 
-          <div class="col">
+          <div class="col-12">
             <label class="text" for="adress">Adress</label>
           </div>
-          <div class="col">
+          <div class="col-12">
             <input type="text" name="adress" />
-          </div>
-          <div class="col">
-            <label class="text" for="phone">Phone Number</label>
-          </div>
-          <div class="col">
-            <input type="tel" name="phone" />
-          </div>
-          <div class="col">
-            <label class="text" for="email">Email</label>
-          </div>
-          <div class="col">
-            <input type="email" name="email" />
           </div>
         </div>
         <div id="paymentmethod">
           <div class="headlines" class="col-12">
             <p>Payment method</p>
           </div>
-          <input type="radio" name="paylater" />
-          <label class="text" for="paylater">Buy now, pay later!</label>
+          <div id="paymentoption">
+            <input type="radio" name="paylater" id="payradio" />
+            <label class="text" for="paylater">Buy now, pay later!</label>
+          </div>
         </div>
         <div id="submitbutton">
           <button class="text" type="submit" id="orderbutton">

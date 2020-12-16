@@ -41,21 +41,55 @@ img {
   padding: 5%;
 }
 
+#trashwrapper > i {
+  font-size: 1em;
+}
+#trashwrapper > i:hover {
+  cursor: pointer;
+}
+
+#contactform input {
+  width: 100%;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
 
-  @media only screen and (min-width: 768px) {
-    .text {
-      font-size: 2em;
-    }
-    .headlines > p {
-      font-size: 4em;
-    }
-    #contactform input {
-      width: 300px;
-      height: 40px;
-    }
+@media only screen and (min-width: 768px) {
+  .text {
+    font-size: 2em;
+  }
+  .headlines > p {
+    font-size: 4em;
+  }
+  #contactform input {
+    width: 100%;
+  }
+  #trashwrapper > i {
+    font-size: 2em;
+  }
+
+  input {
+    font-size: 25pt;
+  }
+  button {
+    font-size: 25pt;
+  }
+  #detailswrapper {
+    font-size: 2em;
+  }
+
+  #sum {
+    font-size: 2em;
+  }
+  #payradio {
+    width: 25px;
+    height: 25px;
+  }
+  #paymentoption {
+    margin: 0% 5%;
   }
 }

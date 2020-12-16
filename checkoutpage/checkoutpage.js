@@ -34,7 +34,7 @@ function addQuantity(event) {
   event.data.input[0].value = totalQuantity;
   localStorage.setItem("cart", JSON.stringify(productsInCart));
   let productSum = calculateProductSum(event.data.product);
-  event.data.price[0].textContent = productSum;
+  event.data.price[0].textContent = productSum + " sek";
   renderSum();
 }
 
@@ -79,7 +79,7 @@ function subtractQuantity(event) {
     localStorage.setItem("cart", JSON.stringify(productsInCart));
     let productSum = calculateProductSum(event.data.product);
 
-    event.data.price[0].textContent = productSum;
+    event.data.price[0].textContent = productSum + " sek";
     renderSum();
   } else {
     alertBox(event.data.product);
@@ -119,20 +119,18 @@ function renderProducts() {
 
     $("<p>").html(product.fruit.name).appendTo(detailsWrapper);
 
-    let priceElementContainer = $("<p>")
-      .html("Price: ")
-      .appendTo(detailsWrapper);
-    let priceElement = $("<span>")
-      .html(calculateProductSum(product))
-      .addClass("price")
-      .appendTo(priceElementContainer);
-    $("<span>")
-      .html(" sek. " + product.fruit.price + " sek/kg")
-      .appendTo(priceElementContainer);
-
     $("<p>")
       .html("Product ID: " + product.fruit.id)
       .appendTo(detailsWrapper);
+
+    let priceElementContainer = $("<p>").appendTo(detailsWrapper);
+    $("<p>")
+      .html(product.fruit.price + " sek/kg")
+      .appendTo(priceElementContainer);
+    let priceElement = $("<p>")
+      .html(calculateProductSum(product) + " sek")
+      .addClass("price")
+      .appendTo(priceElementContainer);
 
     //Wrapper for the quantityinput with buttons
     let inputWrapper = $("<div>")
