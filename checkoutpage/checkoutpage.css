@@ -41,11 +41,21 @@ img {
   padding: 5%;
 }
 
-@media only screen and (min-width: 768px) {
-  .text {
-    font-size: 2em;
-  }
-  .headlines > p {
-    font-size: 3em;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+
+  @media only screen and (min-width: 768px) {
+    .text {
+      font-size: 2em;
+    }
+    .headlines > p {
+      font-size: 4em;
+    }
+    #contactform input {
+      width: 300px;
+      height: 40px;
+    }
   }
 }
