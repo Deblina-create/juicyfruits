@@ -3,6 +3,8 @@ let pageSize = 3;
 
 
 
+
+
 // defining the classes for both the objects
 
 class Fruit{
@@ -23,110 +25,102 @@ class CartItem{
       
  }
 }
-// make all fruit objects in local storage 
-//make an array of the fruit objects for the local storage to access
+// make all fruit objects array in local storage 
+ let fruitList = [
+  {
+    image: {url:"../images/orange.jpg", text:"imgtext"},
+    name: "Orange",
+    price: "29 sek/kg",
+    description: "rich in vitamin C",
+    id:101
+  },
+  { 
+    image: {url:"../images/strawberries.jpg", text:"imgtext"},
+    name: "Strawberry",
+    price: "49 sek/kg",
+    description: "rich in vitamin C",
+    id:102
+  },
+  {
+    image: {url:"../images/banana2.jpg", text:"imgtext"},
+    name: "Banana",
+    price: "29 sek/kg",
+    description: "rich in vitamins and iron",
+    id:103
+  },
+  { 
+    image: {url:"../images/cherry.jpg", text:"imgtext"},
+    name: "Cherry",
+    price: "49 sek/kg",
+    description: "rich in vitamin and minerals",
+    id:201
+  },
+  {
+    image: {url:"../images/apple1.jpg", text:"imgtext"}, 
+    name: "Apple",
+    price: "29 sek/kg",
+    description: "rich in vitamin C",
+    id:202
+  },
+  { 
+    image: {url:"../images/pears.jpg", text:"imgtext"},
+    name: "Pear",
+    price: "29 sek/kg",
+    description: "rich in vitamin and energy",
+    id:203
+  },
+  { 
+   image: {url:"../images/dragonfruit.jpg", text:"imgtext"},
+   name: "Dragon Fruit",
+   price: "49 sek/kg",
+   description: "rich in vitamin C",
+   id:301
+ },
+ { 
+   image: {url:"../images/kiwi.jpg", text:"imgtext"},
+   name: "kiwi",
+   price: "49 sek/kg",
+   description: "rich in vitamin C energy",
+   id:302
+ },
+ { 
+   image: {url:"../images/pomegranate.jpg", text:"imgtext"},
+   name: "Pomegranate",
+   price: "55 sek/kg",
+   description: "rich in vitamin C energy",
+   id:303
+ },
+ { 
+   image: {url:"../images/avocado.jpg", text:"imgtext"},
+   name: "Avocado",
+   price: "79 sek/kg",
+   description: "rich in vitamin C energy",
+   id:304
+ }
+];
 
 
 
-let fruitList = [
-       {
-         image: {url:"images/orange.jpg", text:"imgtext"},
-         name: "Orange",
-         price: "29 sek/kg",
-         description: "rich in vitamin C",
-         id:101
-       },
-       { 
-         image: {url:"images/strawberries.jpg", text:"imgtext"},
-         name: "Strawberry",
-         price: "49 sek/kg",
-         description: "rich in vitamin C",
-         id:102
-       },
-       {
-         image: {url:"images/banana2.jpg", text:"imgtext"},
-         name: "Banana",
-         price: "29 sek/kg",
-         description: "rich in vitamins and iron",
-         id:103
-       },
-       { 
-         image: {url:"images/cherry.jpg", text:"imgtext"},
-         name: "Cherry",
-         price: "49 sek/kg",
-         description: "rich in vitamin and minerals",
-         id:201
-       },
-       {
-         image: {url:"images/apple1.jpg", text:"imgtext"}, 
-         name: "Apple",
-         price: "29 sek/kg",
-         description: "rich in vitamin C",
-         id:202
-       },
-       { 
-         image: {url:"images/pears.jpg", text:"imgtext"},
-         name: "Pear",
-         price: "29 sek/kg",
-         description: "rich in vitamin and energy",
-         id:203
-       },
-       { 
-        image: {url:"images/dragonfruit.jpg", text:"imgtext"},
-        name: "Dragon Fruit",
-        price: "49 sek/kg",
-        description: "rich in vitamin C",
-        id:301
-      },
-      { 
-        image: {url:"images/kiwi.jpg", text:"imgtext"},
-        name: "kiwi",
-        price: "49 sek/kg",
-        description: "rich in vitamin C",
-        id:302
-      },
-      { 
-        image: {url:"images/pomegranate.jpg", text:"imgtext"},
-        name: "Pomegranate",
-        price: "55 sek/kg",
-        description: "rich in vitamin C",
-        id:303
-      },
-      { 
-        image: {url:"images/avocado.jpg", text:"imgtext"},
-        name: "Avocado",
-        price: "79 sek/kg",
-        description: "rich in vitamin C",
-        id:304
-      }
-    ];
+
+
 
 
 
 $(document).ready(function(){
+  console.log(fruitList);
+
 
  //this calls the loadAllFruits function that loads all the fruit objects 
 
-    loadAllFruits();
+    loadAllFruits(fruitList);
 
      //logic for pagination 
 
-    $("#showMore").on("click", function(){
-      let currentPageIndex = parseInt(JSON.parse(localStorage.getItem("currentPageIndex")));
-      if((currentPageIndex + 1) * pageSize <= fruitList.length){
-        currentPageIndex++;
-        localStorage.setItem("currentPageIndex", JSON.stringify(currentPageIndex));
-        loadAllFruits();
-
-        //this is for show more button to disappear once it reaches the last page
-
-        if((currentPageIndex + 1) * pageSize > fruitList.length){
-          $("#showMore").css("display", "none");
-        }
-      }
+    $("#showMore").on("click", function(e){
+      showMoreFruits(fruitList);
       
     });
-   // this shows the fruit quantity in the cart when the page is refreshed
+   // this shows the fruit quantity in the cart badge when the page is refreshed or loaded else the badge disappears
 
     let cart = JSON.parse(localStorage.getItem("cart"));
     if(cart && cart.length > 0){
@@ -138,26 +132,42 @@ $(document).ready(function(){
       $("#cartBadge").html("");
       $("#cartBadge").css("display", "none");
     }
+    const fruitNames = fruitList.map(x => x.name);
+    const fruitDescriptions = fruitList.map(x => x.description);
+    const tags = [...fruitNames, ...fruitDescriptions];
+    $( "#inputSearch" ).autocomplete({
+        source: tags
+    });
 
+    $("#btnSearch").on("click", function(){
+        let searchText = $("#inputSearch").val();
+        let searchResult = fruitList.filter(eachFruit => eachFruit.name === searchText || eachFruit.description === searchText);
+        loadSearchedFruits(searchResult);
+        localStorage.setItem("currentPageIndex", "0");
+    });
 });
 
-// this empties the fruit objects from loalstorage when the page is closed
+// this resets the fruit objects in loalstorage to the first page index when the page is closed
 
 window.onbeforeunload = function(e) {
-  let currentPageIndex = JSON.parse(localStorage.getItem("currentPageIndex"));
+  let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
   if(currentPageIndex){
     localStorage.removeItem("currentPageIndex");
   }
 };
 
-//from here starts all the funtion(definations)
+
+
+//.......from here starts all the funtion(definations).......
   
-// create card for each fruit
+// create card for the given fruit
 
 function createCard(fruit){
 
     let card = $("<div>").addClass("card col-12 col-md-6 col-lg-4 minicard").css("width", "18rem");
-    $("<img>").attr("src", fruit.image.url).attr("alt", fruit.image.text).addClass("card-img-top").appendTo(card);
+    let anchorLink = $("<a>").attr("href", "../productpage/productpage.html?fruitId=" + fruit.id.toString());
+    $("<img>").attr("src", fruit.image.url).attr("alt", fruit.image.text).addClass("card-img-top").appendTo(anchorLink);
+    anchorLink.appendTo(card);
     let cardBody = $("<div>").addClass("card-body");
     $("<h5>").html(fruit.name).addClass("card-title").appendTo(cardBody);
     $("<p>").html(fruit.price).addClass("card-text").appendTo(cardBody);
@@ -171,31 +181,31 @@ function createCard(fruit){
 }
 
 
-//function for loading fruits from local storage into index page
+//function for loading fruits from the fruitList array into index page after calculating how many fruits to be shown in the page at a certain moment
 
-function loadAllFruits(){
+function loadAllFruits(fruits){
   $(".productList .container .row").empty();
-  let currentPageIndex = JSON.parse(localStorage.getItem("currentPageIndex"));
+  let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
  
   if (!currentPageIndex){
     
     currentPageIndex = 0;
-    localStorage.setItem("currentPageIndex", JSON.stringify(currentPageIndex));
+    localStorage.setItem("currentPageIndex", currentPageIndex.toString());
   }
-  let fruitCount = pageSize * (parseInt(currentPageIndex) + 1); 
-  if(fruitCount > fruitList.length)
+  let fruitCount = pageSize * (currentPageIndex + 1); 
+  if(fruitCount > fruits.length)
   {
-    fruitCount = fruitList.length;
+    fruitCount = fruits.length;
   }
     for (i=0; i < fruitCount; i++ ){
-         createCard(fruitList[i]);
+         createCard(fruits[i]);
     }
     $(".addToCart").on("click", function(e){
-      console.log("Inside add to cart event");
+      
       //this function will add the cliked fruit with mentioned quantity to cart
       let qty = parseInt($(this).siblings( ".quantity" ).val());
       let fruitId = $(this).siblings("[type=hidden]").val();
-      let result = fruitList.filter(fruit => fruit.id == fruitId);
+      let result = fruits.filter(fruit => fruit.id == fruitId);
 
       //
       if(result && result.length > 0)
@@ -206,6 +216,47 @@ function loadAllFruits(){
       }
     });
 }
+
+function loadSearchedFruits(fruits){
+  $(".productList .container .row").empty();
+
+  
+    for (i=0; i < fruits.length; i++ ){
+         createCard(fruits[i]);
+    }
+    $(".addToCart").on("click", function(e){
+      
+      //this function will add the cliked fruit with mentioned quantity to cart
+      let qty = parseInt($(this).siblings( ".quantity" ).val());
+      let fruitId = $(this).siblings("[type=hidden]").val();
+      let result = fruits.filter(fruit => fruit.id == fruitId);
+
+      //
+      if(result && result.length > 0)
+      {
+        let cartItem = new CartItem(result[0], qty);
+        addToCart(cartItem);
+        $(this).siblings( ".quantity" ).val(1);
+      }
+    });
+    $("#showMore").css("display", "none");
+}
+
+function showMoreFruits(fruits){
+  let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
+      if((currentPageIndex + 1) * pageSize <= fruits.length){
+        currentPageIndex++;
+        localStorage.setItem("currentPageIndex", currentPageIndex.toString());
+        loadAllFruits(fruits);
+
+        //this is for show more button to disappear once it reaches the last page
+
+        if((currentPageIndex + 1) * pageSize > fruits.length){
+          $("#showMore").css("display", "none");
+        }
+      }
+}
+
 
 //add to cart function
 function addToCart(cartItem){
@@ -218,20 +269,21 @@ function addToCart(cartItem){
     return cartIteInArray.fruit.id === cartItem.fruit.id;
   });
 
-  //this is to make sure not to add the same fruit object again. instead only change the quantity of the object
-
+  
+// this creates the object in the cart
   if (fruitIndex == -1){
     cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
     
   }
   else {
+    //this is to make sure not to add the same fruit object again. instead only change the quantity of the object
     cart[fruitIndex].quantity = parseInt(cart[fruitIndex].quantity) + parseInt(cartItem.quantity);
     localStorage.setItem("cart", JSON.stringify(cart));
 
   }
 
-  //this only to display the number of objects in the badge
+  //this only to display the number of fruits in the badge or to hide the badge if no fruits are in the cart
 
   if(cart.length > 0){
     $("#cartBadge").html(cart.length);
@@ -248,7 +300,7 @@ function addToCart(cartItem){
 
 //......yet to be done .......
 //activate search option with fulltext search
-//make the page responsive 
+
 //redirect to cart page
 
 
