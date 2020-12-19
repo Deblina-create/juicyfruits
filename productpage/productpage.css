@@ -1,0 +1,28 @@
+#menu {
+    
+    background-color: rgb(245, 149, 23);
+}
+
+.body{
+
+    background-color:rgb(250, 214, 56);
+    align-items: center;
+    justify-content: center;
+}
+
+
+#footercontent{
+    height: 20%;
+    background-color: rgb(245, 149, 23);
+}
+.card{
+    text-align: center;
+    display: inline-block;
+    
+}
+.card-body{
+    background-color:rgb(250, 214, 56);
+}
+.anotherBody{
+    background-color:rgb(250, 214, 56);
+}
