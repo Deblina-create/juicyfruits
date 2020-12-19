@@ -5,98 +5,102 @@ let pageSize = 3;
 
 
 
+
 // defining the classes for both the objects
 
 class Fruit{
     constructor(image, name, price, description, index, id,){
         this.image = image;
         this.name = name;
-        this.prie = price;
+        this.price = price;
         this.description = description;
         this.index = index;
         this.id = id;
     }
+
 }
 
-class CartItem{
-  constructor(fruit,quantity){
-      this.quantity = quantity;
-      this.fruit = fruit;
-      
- }
+class CartItem {
+  constructor(fruit, quantity) {
+    this.quantity = quantity;
+    this.fruit = fruit;
+  }
 }
-// make all fruit objects array in local storage 
- let fruitList = [
+
+// make all objects in local storage
+//make an array of the objects for the local storage to access
+
+let fruitList = [
   {
-    image: {url:"../images/orange.jpg", text:"imgtext"},
+    image: { url: "images/orange.jpg", text: "imgtext" },
     name: "Orange",
-    price: "29 sek/kg",
+    price: 29,
     description: "rich in vitamin C",
-    id:101
+    id: 101,
   },
-  { 
-    image: {url:"../images/strawberries.jpg", text:"imgtext"},
+  {
+    image: { url: "images/strawberries.jpg", text: "imgtext" },
     name: "Strawberry",
-    price: "49 sek/kg",
+    price: 49,
     description: "rich in vitamin C",
-    id:102
+    id: 102,
   },
   {
-    image: {url:"../images/banana2.jpg", text:"imgtext"},
+    image: { url: "images/banana2.jpg", text: "imgtext" },
     name: "Banana",
-    price: "29 sek/kg",
+    price: 29,
     description: "rich in vitamins and iron",
-    id:103
-  },
-  { 
-    image: {url:"../images/cherry.jpg", text:"imgtext"},
-    name: "Cherry",
-    price: "49 sek/kg",
-    description: "rich in vitamin and minerals",
-    id:201
+    id: 103,
   },
   {
-    image: {url:"../images/apple1.jpg", text:"imgtext"}, 
+    image: { url: "images/cherry.jpg", text: "imgtext" },
+    name: "Cherry",
+    price: 49,
+    description: "rich in vitamin and minerals",
+    id: 201,
+  },
+  {
+    image: { url: "images/apple.jpg", text: "imgtext" },
     name: "Apple",
-    price: "29 sek/kg",
+    price: 29,
     description: "rich in vitamin C",
-    id:202
+    id: 202,
   },
-  { 
-    image: {url:"../images/pears.jpg", text:"imgtext"},
+  {
+    image: { url: "images/pears.jpg", text: "imgtext" },
     name: "Pear",
-    price: "29 sek/kg",
+    price: 29,
     description: "rich in vitamin and energy",
-    id:203
+    id: 203,
   },
-  { 
-   image: {url:"../images/dragonfruit.jpg", text:"imgtext"},
-   name: "Dragon Fruit",
-   price: "49 sek/kg",
-   description: "rich in vitamin C",
-   id:301
- },
- { 
-   image: {url:"../images/kiwi.jpg", text:"imgtext"},
-   name: "kiwi",
-   price: "49 sek/kg",
-   description: "rich in vitamin C energy",
-   id:302
- },
- { 
-   image: {url:"../images/pomegranate.jpg", text:"imgtext"},
-   name: "Pomegranate",
-   price: "55 sek/kg",
-   description: "rich in vitamin C energy",
-   id:303
- },
- { 
-   image: {url:"../images/avocado.jpg", text:"imgtext"},
-   name: "Avocado",
-   price: "79 sek/kg",
-   description: "rich in vitamin C energy",
-   id:304
- }
+  {
+    image: { url: "images/dragonfruit.jpg", text: "imgtext" },
+    name: "Strawberry",
+    price: 49,
+    description: "rich in vitamin C",
+    id: 301,
+  },
+  {
+    image: { url: "images/kiwi.jpg", text: "imgtext" },
+    name: "Strawberry",
+    price: 49,
+    description: "rich in vitamin C",
+    id: 302,
+  },
+  {
+    image: { url: "images/pomegranate.jpg", text: "imgtext" },
+    name: "Strawberry",
+    price: 49,
+    description: "rich in vitamin C",
+    id: 303,
+  },
+  {
+    image: { url: "images/pomegranate.jpg", text: "imgtext" },
+    name: "Strawberry1",
+    price: 49,
+    description: "rich in vitamin C",
+    id: 304,
+  },
 ];
 
 
@@ -152,9 +156,11 @@ $(document).ready(function(){
 window.onbeforeunload = function(e) {
   let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
   if(currentPageIndex){
+
     localStorage.removeItem("currentPageIndex");
   }
 };
+
 
 
 
@@ -170,7 +176,10 @@ function createCard(fruit){
     anchorLink.appendTo(card);
     let cardBody = $("<div>").addClass("card-body");
     $("<h5>").html(fruit.name).addClass("card-title").appendTo(cardBody);
-    $("<p>").html(fruit.price).addClass("card-text").appendTo(cardBody);
+    $("<p>")
+    .html(fruit.price + " sek/kg")
+    .addClass("card-text")
+    .appendTo(cardBody);
     let span = $("<span>");
     $("<input>").attr("type", "hidden").attr("value", fruit.id).appendTo(span);
     $("<input>").addClass("quantity").attr("type", "number").attr("placeholder","Quantity").attr("value", 1).attr("min", 1).appendTo(span);
@@ -189,9 +198,11 @@ function loadAllFruits(fruits){
  
   if (!currentPageIndex){
     
+
     currentPageIndex = 0;
     localStorage.setItem("currentPageIndex", currentPageIndex.toString());
   }
+
   let fruitCount = pageSize * (currentPageIndex + 1); 
   if(fruitCount > fruits.length)
   {
@@ -227,7 +238,7 @@ function loadSearchedFruits(fruits){
     $(".addToCart").on("click", function(e){
       
       //this function will add the cliked fruit with mentioned quantity to cart
-      let qty = parseInt($(this).siblings( ".quantity" ).val());
+      let qty = Number.parseInt($(this).siblings( ".quantity" ).val());
       let fruitId = $(this).siblings("[type=hidden]").val();
       let result = fruits.filter(fruit => fruit.id == fruitId);
 
@@ -259,15 +270,16 @@ function showMoreFruits(fruits){
 
 
 //add to cart function
-function addToCart(cartItem){
+function addToCart(cartItem) {
   let cart = JSON.parse(localStorage.getItem("cart"));
- 
-  if (!cart){
+
+  if (!cart) {
     cart = new Array();
   }
-  let fruitIndex = cart.findIndex(function(cartIteInArray){
+  let fruitIndex = cart.findIndex(function (cartIteInArray) {
     return cartIteInArray.fruit.id === cartItem.fruit.id;
   });
+
 
   
 // this creates the object in the cart
@@ -279,9 +291,11 @@ function addToCart(cartItem){
   else {
     //this is to make sure not to add the same fruit object again. instead only change the quantity of the object
     cart[fruitIndex].quantity = parseInt(cart[fruitIndex].quantity) + parseInt(cartItem.quantity);
-    localStorage.setItem("cart", JSON.stringify(cart));
 
+  
+    localStorage.setItem("cart", JSON.stringify(cart));
   }
+
 
   //this only to display the number of fruits in the badge or to hide the badge if no fruits are in the cart
 
@@ -297,10 +311,5 @@ function addToCart(cartItem){
 
 }
 
-
-//......yet to be done .......
-//activate search option with fulltext search
-
-//redirect to cart page
 
 

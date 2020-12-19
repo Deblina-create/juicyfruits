@@ -1,0 +1,99 @@
+body {
+  background-color: rgb(245, 149, 23);
+}
+.container {
+  background-color: rgb(250, 214, 56);
+}
+
+#productwrapper {
+  margin: 5% 0%;
+}
+
+.headlines {
+  text-align: center;
+  padding: 3%;
+}
+
+.headlines > p {
+  font-size: 2em;
+}
+
+#imgwrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  max-width: 100%;
+  border: 2px solid rgb(245, 149, 23);
+}
+
+#quantityinput {
+  max-width: 50px;
+  text-align: center;
+}
+
+#submitbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+
+#trashwrapper > i {
+  font-size: 1em;
+}
+#trashwrapper > i:hover {
+  cursor: pointer;
+}
+
+#contactform input {
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#productname {
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 768px) {
+  .text {
+    font-size: 2em;
+  }
+  .headlines > p {
+    font-size: 4em;
+  }
+  #contactform input {
+    width: 100%;
+  }
+  #trashwrapper > i {
+    font-size: 2em;
+  }
+
+  input {
+    font-size: 25pt;
+  }
+  button {
+    font-size: 25pt;
+  }
+  #detailswrapper {
+    font-size: 2em;
+  }
+
+  #sum {
+    font-size: 2em;
+  }
+  #payradio {
+    width: 25px;
+    height: 25px;
+  }
+  #paymentoption {
+    margin: 0% 5%;
+  }
+}
