@@ -11,7 +11,11 @@ body {
 }
 
 #menu {
-  background-color: rgb(255, 196, 0);
+  background-color: rgb(245, 149, 23);
+}
+
+.menuColor {
+  color: rgb(20, 19, 19);
 }
 
 .navbar-toggler-icon {
@@ -90,6 +94,11 @@ input::-webkit-inner-spin-button {
 
 #sum {
   margin: 3%;
+}
+
+#footercontent {
+  height: 20%;
+  background-color: rgb(245, 149, 23);
 }
 
 @media only screen and (min-width: 768px) {
