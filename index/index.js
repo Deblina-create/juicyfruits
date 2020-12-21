@@ -1,15 +1,23 @@
 let localStorage = window.localStorage;
 let pageSize = 3;
 
-class Fruit {
-  constructor(image, name, price, description, index, id) {
-    this.image = image;
-    this.name = name;
-    this.prie = price;
-    this.description = description;
-    this.index = index;
-    this.id = id;
-  }
+
+
+
+
+
+// defining the classes for both the objects
+
+class Fruit{
+    constructor(image, name, price, description, index, id,){
+        this.image = image;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.index = index;
+        this.id = id;
+    }
+
 }
 
 class CartItem {
@@ -18,75 +26,76 @@ class CartItem {
     this.fruit = fruit;
   }
 }
+
 // make all objects in local storage
 //make an array of the objects for the local storage to access
 
 let fruitList = [
   {
-    image: { url: "images/orange.jpg", text: "imgtext" },
+    image: { url: "../images/orange.jpg", text: "imgtext" },
     name: "Orange",
     price: 29,
     description: "rich in vitamin C",
     id: 101,
   },
   {
-    image: { url: "images/strawberries.jpg", text: "imgtext" },
+    image: { url: "../images/strawberries.jpg", text: "imgtext" },
     name: "Strawberry",
     price: 49,
     description: "rich in vitamin C",
     id: 102,
   },
   {
-    image: { url: "images/banana2.jpg", text: "imgtext" },
+    image: { url: "../images/banana2.jpg", text: "imgtext" },
     name: "Banana",
     price: 29,
     description: "rich in vitamins and iron",
     id: 103,
   },
   {
-    image: { url: "images/cherry.jpg", text: "imgtext" },
+    image: { url: "../images/cherry.jpg", text: "imgtext" },
     name: "Cherry",
     price: 49,
     description: "rich in vitamin and minerals",
     id: 201,
   },
   {
-    image: { url: "images/apple.jpg", text: "imgtext" },
+    image: { url: "../images/apple.jpg", text: "imgtext" },
     name: "Apple",
     price: 29,
     description: "rich in vitamin C",
     id: 202,
   },
   {
-    image: { url: "images/pears.jpg", text: "imgtext" },
+    image: { url: "../images/pears.jpg", text: "imgtext" },
     name: "Pear",
     price: 29,
     description: "rich in vitamin and energy",
     id: 203,
   },
   {
-    image: { url: "images/dragonfruit.jpg", text: "imgtext" },
+    image: { url: "../images/dragonfruit.jpg", text: "imgtext" },
     name: "Strawberry",
     price: 49,
     description: "rich in vitamin C",
     id: 301,
   },
   {
-    image: { url: "images/kiwi.jpg", text: "imgtext" },
+    image: { url: "../images/kiwi.jpg", text: "imgtext" },
     name: "Strawberry",
     price: 49,
     description: "rich in vitamin C",
     id: 302,
   },
   {
-    image: { url: "images/pomegranate.jpg", text: "imgtext" },
+    image: { url: "../images/pomegranate.jpg", text: "imgtext" },
     name: "Strawberry",
     price: 49,
     description: "rich in vitamin C",
     id: 303,
   },
   {
-    image: { url: "images/pomegranate.jpg", text: "imgtext" },
+    image: { url: "../images/pomegranate.jpg", text: "imgtext" },
     name: "Strawberry1",
     price: 49,
     description: "rich in vitamin C",
@@ -94,121 +103,171 @@ let fruitList = [
   },
 ];
 
-//(write a function with if else to make sure it loads only once )
 
-//access the array in local storage using ...getItem
 
-$(document).ready(function () {
-  /*console.log(localStorage.getItem("firstLoadFlag"));
-    if(!localStorage.getItem("firstLoadFlag")){
-        //execute first time
-        localStorage.setItem("fruitsInStore",fruits)
-        localStorage.setItem("firstLoadFlag", true);
-    } 
+
+
+
+
+
+$(document).ready(function(){
+  console.log(fruitList);
+
+
+ //this calls the loadAllFruits function that loads all the fruit objects 
+
+    loadAllFruits(fruitList);
+
+     //logic for pagination 
+
+    $("#showMore").on("click", function(e){
+      showMoreFruits(fruitList);
+      
+    });
+   // this shows the fruit quantity in the cart badge when the page is refreshed or loaded else the badge disappears
+
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    if(cart && cart.length > 0){
+      $("#cartBadge").html(cart.length);
+      $("#cartBadge").css("display", "inline");
+    }
     else
     {
-        console.log("Inside else");
-    }*/
-
-  $("#cartBadge").css("display", "none");
-  loadAllFruits();
-
-  $("#showMore").on("click", function () {
-    let currentPageIndex = parseInt(
-      JSON.parse(localStorage.getItem("currentPageIndex"))
-    );
-    if ((currentPageIndex + 1) * pageSize <= fruitList.length) {
-      currentPageIndex++;
-      localStorage.setItem(
-        "currentPageIndex",
-        JSON.stringify(currentPageIndex)
-      );
-      loadAllFruits();
-      if ((currentPageIndex + 1) * pageSize > fruitList.length) {
-        $("#showMore").css("display", "none");
-      }
-    } else {
+      $("#cartBadge").html("");
+      $("#cartBadge").css("display", "none");
     }
-  });
+    const fruitNames = fruitList.map(x => x.name);
+    const fruitDescriptions = fruitList.map(x => x.description);
+    const tags = [...fruitNames, ...fruitDescriptions];
+    $( "#inputSearch" ).autocomplete({
+        source: tags
+    });
+
+    $("#btnSearch").on("click", function(){
+        let searchText = $("#inputSearch").val();
+        let searchResult = fruitList.filter(eachFruit => eachFruit.name === searchText || eachFruit.description === searchText);
+        loadSearchedFruits(searchResult);
+        localStorage.setItem("currentPageIndex", "0");
+    });
 });
 
-window.onbeforeunload = function (e) {
-  let currentPageIndex = JSON.parse(localStorage.getItem("currentPageIndex"));
-  if (currentPageIndex) {
+// this resets the fruit objects in loalstorage to the first page index when the page is closed
+
+window.onbeforeunload = function(e) {
+  let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
+  if(currentPageIndex){
+
     localStorage.removeItem("currentPageIndex");
   }
 };
 
-// create card for each fruit
 
-function createCard(fruit) {
-  let card = $("<div>")
-    .addClass("card col-12 col-md-6 col-lg-4 minicard")
-    .css("width", "18rem");
-  $("<img>")
-    .attr("src", fruit.image.url)
-    .attr("alt", fruit.image.text)
-    .addClass("card-img-top")
-    .appendTo(card);
-  let cardBody = $("<div>").addClass("card-body");
-  $("<h5>").html(fruit.name).addClass("card-title").appendTo(cardBody);
-  $("<p>")
+
+
+//.......from here starts all the funtion(definations).......
+  
+// create card for the given fruit
+
+function createCard(fruit){
+
+    let card = $("<div>").addClass("card col-12 col-md-6 col-lg-4 minicard").css("width", "18rem");
+    let anchorLink = $("<a>").attr("href", "../productpage/productpage.html?fruitId=" + fruit.id.toString());
+    $("<img>").attr("src", fruit.image.url).attr("alt", fruit.image.text).addClass("card-img-top").appendTo(anchorLink);
+    anchorLink.appendTo(card);
+    let cardBody = $("<div>").addClass("card-body");
+    $("<h5>").html(fruit.name).addClass("card-title").appendTo(cardBody);
+    $("<p>")
     .html(fruit.price + " sek/kg")
     .addClass("card-text")
     .appendTo(cardBody);
-  let span = $("<span>");
-  $("<input>").attr("type", "hidden").attr("value", fruit.id).appendTo(span);
-  $("<input>")
-    .addClass("quantity")
-    .attr("type", "number")
-    .attr("placeholder", "Quantity")
-    .attr("value", 1)
-    .attr("min", 1)
-    .appendTo(span);
-  $("<input>")
-    .attr("type", "submit")
-    .attr("value", "add")
-    .addClass("addToCart")
-    .appendTo(span);
-  span.appendTo(cardBody);
-  cardBody.appendTo(card);
-  card.appendTo($(".productList .container .row"));
+    let span = $("<span>");
+    $("<input>").attr("type", "hidden").attr("value", fruit.id).appendTo(span);
+    $("<input>").addClass("quantity").attr("type", "number").attr("placeholder","Quantity").attr("value", 1).attr("min", 1).appendTo(span);
+    $("<input>").attr("type", "submit").attr("value", "add").addClass("addToCart").appendTo(span);
+    span.appendTo(cardBody);
+    cardBody.appendTo(card);
+    card.appendTo($(".productList .container .row"));
 }
 
-//function for loading fruits from local storage into index page
 
-function loadAllFruits() {
+//function for loading fruits from the fruitList array into index page after calculating how many fruits to be shown in the page at a certain moment
+
+function loadAllFruits(fruits){
   $(".productList .container .row").empty();
-  let currentPageIndex = JSON.parse(localStorage.getItem("currentPageIndex"));
-  console.log("Current Page Index");
-  console.log(currentPageIndex);
+  let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
+ 
+  if (!currentPageIndex){
+    
 
-  if (!currentPageIndex) {
     currentPageIndex = 0;
-    localStorage.setItem("currentPageIndex", JSON.stringify(currentPageIndex));
+    localStorage.setItem("currentPageIndex", currentPageIndex.toString());
   }
-  let fruitCount = pageSize * (parseInt(currentPageIndex) + 1);
-  if (fruitCount > fruitList.length) {
-    fruitCount = fruitList.length;
-  }
-  for (i = 0; i < fruitCount; i++) {
-    createCard(fruitList[i]);
-  }
-  $(".addToCart").on("click", function (e) {
-    console.log("Inside add to cart event");
-    //this function will add the cliked fruit with mentioned quantity to cart
-    let qty = parseInt($(this).siblings(".quantity").val());
-    let fruitId = $(this).siblings("[type=hidden]").val();
-    let result = fruitList.filter((fruit) => fruit.id == fruitId);
 
-    //
-    if (result && result.length > 0) {
-      let cartItem = new CartItem(result[0], qty);
-      addToCart(cartItem);
-      $(this).siblings(".quantity").val(1);
+  let fruitCount = pageSize * (currentPageIndex + 1); 
+  if(fruitCount > fruits.length)
+  {
+    fruitCount = fruits.length;
+  }
+    for (i=0; i < fruitCount; i++ ){
+         createCard(fruits[i]);
     }
-  });
+    $(".addToCart").on("click", function(e){
+      
+      //this function will add the cliked fruit with mentioned quantity to cart
+      let qty = parseInt($(this).siblings( ".quantity" ).val());
+      let fruitId = $(this).siblings("[type=hidden]").val();
+      let result = fruits.filter(fruit => fruit.id == fruitId);
+
+      //
+      if(result && result.length > 0)
+      {
+        let cartItem = new CartItem(result[0], qty);
+        addToCart(cartItem);
+        $(this).siblings( ".quantity" ).val(1);
+      }
+    });
 }
+
+function loadSearchedFruits(fruits){
+  $(".productList .container .row").empty();
+
+  
+    for (i=0; i < fruits.length; i++ ){
+         createCard(fruits[i]);
+    }
+    $(".addToCart").on("click", function(e){
+      
+      //this function will add the cliked fruit with mentioned quantity to cart
+      let qty = Number.parseInt($(this).siblings( ".quantity" ).val());
+      let fruitId = $(this).siblings("[type=hidden]").val();
+      let result = fruits.filter(fruit => fruit.id == fruitId);
+
+      //
+      if(result && result.length > 0)
+      {
+        let cartItem = new CartItem(result[0], qty);
+        addToCart(cartItem);
+        $(this).siblings( ".quantity" ).val(1);
+      }
+    });
+    $("#showMore").css("display", "none");
+}
+
+function showMoreFruits(fruits){
+  let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
+      if((currentPageIndex + 1) * pageSize <= fruits.length){
+        currentPageIndex++;
+        localStorage.setItem("currentPageIndex", currentPageIndex.toString());
+        loadAllFruits(fruits);
+
+        //this is for show more button to disappear once it reaches the last page
+
+        if((currentPageIndex + 1) * pageSize > fruits.length){
+          $("#showMore").css("display", "none");
+        }
+      }
+}
+
 
 //add to cart function
 function addToCart(cartItem) {
@@ -220,22 +279,37 @@ function addToCart(cartItem) {
   let fruitIndex = cart.findIndex(function (cartIteInArray) {
     return cartIteInArray.fruit.id === cartItem.fruit.id;
   });
-  if (fruitIndex == -1) {
+
+
+  
+// this creates the object in the cart
+  if (fruitIndex == -1){
     cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
-  } else {
-    cart[fruitIndex].quantity =
-      parseInt(cart[fruitIndex].quantity) + parseInt(cartItem.quantity);
+    
+  }
+  else {
+    //this is to make sure not to add the same fruit object again. instead only change the quantity of the object
+    cart[fruitIndex].quantity = parseInt(cart[fruitIndex].quantity) + parseInt(cartItem.quantity);
+
+  
     localStorage.setItem("cart", JSON.stringify(cart));
   }
-  if (cart.length > 0) {
-    console.log(cart.length);
+
+
+  //this only to display the number of fruits in the badge or to hide the badge if no fruits are in the cart
+
+  if(cart.length > 0){
     $("#cartBadge").html(cart.length);
     $("#cartBadge").css("display", "inline");
   }
+  else
+  {
+    $("#cartBadge").html("");
+    $("#cartBadge").css("display", "none");
+  }
+
 }
 
-//update cart quantity on add to cart
-//activate search option with fulltext search
-//pagination
-//redirect to cart page
+
+

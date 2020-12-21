@@ -1,7 +1,8 @@
 #menu {
     
-    background-color: rgb(255, 196, 0);
+    background-color: rgb(245, 149, 23);
 }
+
 .highlighter {
     background-image: url("background .jpg");
     height: 30vh;
@@ -16,7 +17,7 @@
     color: rgb(255, 196, 0);
     text-align: center;
     display: inline-block;
-    padding: 1rem;
+    
     opacity: 0.6;
 }
 #footercontent{
