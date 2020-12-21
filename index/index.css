@@ -1,6 +1,7 @@
 #menu {
     
     background-color: rgb(245, 149, 23);
+    color: black;
 }
 
 .highlighter {
@@ -34,4 +35,10 @@
     background-color:rgb(250, 214, 56);
     margin-top: 5vh;
     margin-bottom: 5vh;
+}
+#showBtn{
+    text-align: center;
+}
+.menuColor{
+    color:rgb(20, 19, 19);
 }

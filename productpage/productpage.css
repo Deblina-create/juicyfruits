@@ -6,8 +6,10 @@
 .body{
 
     background-color:rgb(250, 214, 56);
-    align-items: center;
+    text-align: center;
     justify-content: center;
+    padding-top: 20px;
+    
 }
 
 
@@ -18,6 +20,7 @@
 .card{
     text-align: center;
     display: inline-block;
+    border-color:rgb(250, 214, 56) ;
     
 }
 .card-body{
@@ -25,4 +28,7 @@
 }
 .anotherBody{
     background-color:rgb(250, 214, 56);
+}
+.menuColor{
+    color:rgb(20, 19, 19);
 }
