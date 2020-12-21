@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(245, 149, 23);
+  background-color: rgb(250, 214, 56);
 }
 
 .container-fluid {
@@ -8,7 +8,7 @@ body {
 }
 
 .thankyou {
-  background-color: rgb(245, 149, 23);
+  background-color: rgb(250, 214, 56);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,11 +18,20 @@ body {
 }
 
 #menu {
-  background-color: rgb(255, 196, 0);
+  background-color: rgb(245, 149, 23);
+}
+
+.menuColor {
+  color: rgb(20, 19, 19);
 }
 
 .navbar-toggler-icon {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#footercontent {
+  height: 20%;
+  background-color: rgb(245, 149, 23);
 }

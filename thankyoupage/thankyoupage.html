@@ -38,66 +38,55 @@
     <div class="container-fluid">
       <header>
         <nav class="navbar navbar-expand-lg" id="menu">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+              <i class="fas fa-bars"></i>
+            </span>
           </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="../index/index.html"
-              >juicyfruits.com</a
-            >
+            <a class="navbar-brand menuColor" href="../index/index.html">juicyfruits.com</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
-                <a class="nav-link" href="../index/index.html"
-                  >Home <span class="sr-only">(current)</span></a
-                >
+                <a class="nav-link menuColor" href="../index/index.html">Home</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Products</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../checkoutpage/checkoutpage.html"
-                  >Checkout</a
-                >
+                <a class="nav-link menuColor" href="../checkoutpage/checkoutpage.html">Checkout</a>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-              <input
-                class="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-              <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
+              
+              <a id="btnCart" class="btn btn-outline-dark my-2 my-sm-0" href="../checkoutpage/checkoutpage.html">
                 <i class="fas fa-cart-plus"></i>
                 <span class="badge badge-danger" id="cartBadge"></span>
-              </button>
+              </a>
             </form>
           </div>
         </nav>
-      </header>
+          </header>
 
       <div class="thankyou">
         <h1>Thank you for your purchase!</h1>
         <p>Your order will be sent as soon as we are done picking apples!</p>
         <p>Hope your day is peachy!</p>
       </div>
+
+      <footer id="footercontent">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <p class="email"> email:Hello@juicyfruit.com </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <i class="fab fa-facebook"></i>
+              <i class="fab fa-twitter-square"></i>
+              <i class="fab fa-instagram-square"></i>
+            </div>
+          </div>
+          
+        </div>
+      </footer>
     </div>
   </body>
 </html>
