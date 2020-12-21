@@ -1,11 +1,28 @@
 body {
   background-color: rgb(245, 149, 23);
 }
-.thankyou {
+
+.container-fluid {
   background-color: rgb(250, 214, 56);
+  padding: 0%;
+}
+
+.thankyou {
+  background-color: rgb(245, 149, 23);
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#menu {
+  background-color: rgb(255, 196, 0);
+}
+
+.navbar-toggler-icon {
+  display: flex;
   justify-content: center;
   align-items: center;
 }

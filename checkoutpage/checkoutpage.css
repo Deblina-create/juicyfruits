@@ -6,8 +6,18 @@ body {
   padding: 0%;
 }
 
+.row {
+  margin: 0%;
+}
+
 #menu {
   background-color: rgb(255, 196, 0);
+}
+
+.navbar-toggler-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #productwrapper {
@@ -56,6 +66,10 @@ img {
   cursor: pointer;
 }
 
+form {
+  display: inline-block;
+}
+
 #contactform input {
   width: 100%;
 }
@@ -68,6 +82,14 @@ input::-webkit-inner-spin-button {
 
 #productname {
   font-weight: bold;
+}
+
+#paymentoption {
+  margin: 0% 5%;
+}
+
+#sum {
+  margin: 3%;
 }
 
 @media only screen and (min-width: 768px) {
@@ -100,8 +122,5 @@ input::-webkit-inner-spin-button {
   #payradio {
     width: 25px;
     height: 25px;
-  }
-  #paymentoption {
-    margin: 0% 5%;
   }
 }
