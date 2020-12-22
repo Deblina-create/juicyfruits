@@ -115,7 +115,7 @@ $(document).ready(function(){
 function loadFruit(fruit){
     
 
-        let card = $("<div>").addClass("card").css("width", "32rem");
+        let card = $("<div>").addClass("card").css("width", "18rem");
         
         $("<img>").attr("src", fruit.image.url).attr("alt", fruit.image.text).addClass("card-img-top").appendTo(card);
         

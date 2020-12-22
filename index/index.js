@@ -136,20 +136,36 @@ $(document).ready(function(){
       $("#cartBadge").html("");
       $("#cartBadge").css("display", "none");
     }
-    const fruitNames = fruitList.map(x => x.name);
-    const fruitDescriptions = fruitList.map(x => x.description);
-    const tags = [...fruitNames, ...fruitDescriptions];
-    $( "#inputSearch" ).autocomplete({
-        source: tags
-    });
 
-    $("#btnSearch").on("click", function(){
-        let searchText = $("#inputSearch").val();
-        let searchResult = fruitList.filter(eachFruit => eachFruit.name === searchText || eachFruit.description === searchText);
-        loadSearchedFruits(searchResult);
-        localStorage.setItem("currentPageIndex", "0");
+    $('#checkoutModal').on('show.bs.modal', function (event) {
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart && cart.length > 0)
+      {
+        loadModalData(cart);
+        $(".qtyModal").on("change", function(){
+          
+          let fruitId = $(this).siblings("[type=hidden]").val();
+
+          let cartItemIndex = cart.findIndex(function (cartItemInArray) {
+            return cartItemInArray.fruit.id == fruitId;
+          });
+
+          if (cartItemIndex != -1){
+            let currentQty = Number.parseInt($(this).val());
+            cart[cartItemIndex].quantity = currentQty;
+            $(this).parent().siblings(".totalQtyContainer").find(".totalQtyModal").html(`${currentQty * cart[cartItemIndex].fruit.price} SEK`);
+            localStorage.setItem("cart", JSON.stringify(cart));
+          }
+          console.log(fruitId);
+
+         
+          
+        });
+      }
     });
 });
+
+
 
 // this resets the fruit objects in loalstorage to the first page index when the page is closed
 
@@ -165,6 +181,74 @@ window.onbeforeunload = function(e) {
 
 
 //.......from here starts all the funtion(definations).......
+
+//to load checkout modal data
+
+function loadModalData(cart){
+  $(".modal-body").empty();
+    $.each(cart, (i, cartItem) => {
+      createModalCartRow(cartItem);
+    });
+    
+    $(".deleteModalCartItem").on("click", function(){
+      deleteModalCartItem($(this));
+    })
+
+}
+
+function deleteModalCartItem(deleteButton){
+  
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  if (cart && cart.length > 0)
+  {
+    let fruitId = deleteButton.parent().parent().find(".hidQty").val();
+    
+    let currentItemIndex = cart.findIndex(function (cartItemInArray) {
+      return cartItemInArray.fruit.id == fruitId;
+    });
+
+    if(currentItemIndex != -1){
+      deleteButton.parent().parent().siblings(".dividerRow:first").remove();
+      deleteButton.parent().parent().remove();
+      cart.splice(currentItemIndex, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }
+  
+  
+}
+
+function createModalCartRow(cartItem){
+  let row = $("<div>").addClass("row");
+  let imageContainer = $("<div>").addClass("col-6 col-md-4 col-lg-2");
+  $("<img>").attr("src", cartItem.fruit.image.url).attr("alt", cartItem.fruit.image.text).attr("width", "60px").attr("height","42px").addClass("img-thumbnail").appendTo(imageContainer);
+  imageContainer.appendTo(row);
+  let fruitNameContainer = $("<div>").addClass("col-6 col-md-4 col-lg-2");
+  $("<span>").html(cartItem.fruit.name).css("font-weight", "bold").appendTo(fruitNameContainer);
+  fruitNameContainer.appendTo(row);
+  let priceContainer = $("<div>").addClass("col-6 col-md-4 col-lg-2");
+  $("<span>").html(`${cartItem.fruit.price} SEK/Kg`).appendTo(priceContainer);
+  priceContainer.appendTo(row);
+  let qtyContainer = $("<div>").addClass("col-6 col-md-4 col-lg-2");
+  $("<input>").addClass("hidQty").attr("type", "hidden").attr("value", cartItem.fruit.id).appendTo(qtyContainer);
+  $("<input>").addClass("qtyModal").attr("type", "number").attr("value", cartItem.quantity).attr("min", 1).css("width", "100%").appendTo(qtyContainer);
+  qtyContainer.appendTo(row);
+  let totalContainer = $("<div>").addClass("col-6 col-md-4 col-lg-2 totalQtyContainer");
+  $("<span>").addClass("totalQtyModal").html(`${cartItem.fruit.price * cartItem.quantity} SEK`).appendTo(totalContainer);
+  totalContainer.appendTo(row);
+  let deleteBtnContainer = $("<div>").addClass("col-6 col-md-4 col-lg-2");
+  let deleteBtn = $("<a>").addClass("btn btn-dark my-2 my-sm-0 deleteModalCartItem");
+  $("<i>").addClass("fas fa-trash-alt").appendTo(deleteBtn);
+  deleteBtn.appendTo(deleteBtnContainer);
+  deleteBtnContainer.appendTo(row);
+  row.appendTo(".modal-body");
+
+  let dividerRow = $("<div>").addClass("row dividerRow");
+  let dividerContainer = $("<div>").addClass("col-12");
+  $("<hr>").addClass("solid").appendTo(dividerContainer);
+  dividerContainer.appendTo(dividerRow);
+  dividerRow.appendTo(".modal-body");
+}
   
 // create card for the given fruit
 
@@ -228,30 +312,6 @@ function loadAllFruits(fruits){
     });
 }
 
-function loadSearchedFruits(fruits){
-  $(".productList .container .row").empty();
-
-  
-    for (i=0; i < fruits.length; i++ ){
-         createCard(fruits[i]);
-    }
-    $(".addToCart").on("click", function(e){
-      
-      //this function will add the cliked fruit with mentioned quantity to cart
-      let qty = Number.parseInt($(this).siblings( ".quantity" ).val());
-      let fruitId = $(this).siblings("[type=hidden]").val();
-      let result = fruits.filter(fruit => fruit.id == fruitId);
-
-      //
-      if(result && result.length > 0)
-      {
-        let cartItem = new CartItem(result[0], qty);
-        addToCart(cartItem);
-        $(this).siblings( ".quantity" ).val(1);
-      }
-    });
-    $("#showMore").css("display", "none");
-}
 
 function showMoreFruits(fruits){
   let currentPageIndex = Number.parseInt(localStorage.getItem("currentPageIndex"));
