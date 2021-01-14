@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Check out</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./checkoutpage.css" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./checkoutpage.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header>
+        <nav class="navbar navbar-expand-lg" id="menu">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+              <i class="fas fa-bars"></i>
+            </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand menuColor" href="../index/index.html">juicyfruits.com</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link menuColor" href="../index/index.html">Home</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link menuColor" href="./checkoutpage.html">Checkout</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              
+              <a id="btnCart" class="btn btn-outline-dark my-2 my-sm-0" href="../checkoutpage/checkoutpage.html">
+                <i class="fas fa-cart-plus"></i>
+                <span class="badge badge-danger" id="cartBadge"></span>
+              </a>
+            </form>
+          </div>
+        </nav>
+          </header>
+
+      <div class="headlines" class="col-12">
+        <p>Checkout</p>
+      </div>
+      <div id="productcontainer"></div>
+      <h5 id="sum"></h5>
+      <div class="headlines" class="col-12">
+        <p>Contact information</p>
+      </div>
+      <form>
+        <div id="contactform" class="row">
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="fname">First name</label>
+            </div>
+            <div class="col-12">
+              <input type="text" name="fname" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="lname">Last name</label>
+            </div>
+            <div class="col-12">
+              <input type="text" name="lname" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="email">Email</label>
+            </div>
+            <div class="col-12">
+              <input type="email" name="email" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="col-12">
+              <label class="text" for="phone">Phone Number</label>
+            </div>
+            <div class="col-12">
+              <input type="tel" name="phone" />
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="col-12">
+              <label class="text" for="adress">Adress</label>
+            </div>
+            <div class="col-12">
+              <input type="text" name="adress" />
+            </div>
+          </div>
+        </div>
+        <div id="paymentmethod">
+          <div class="headlines" class="col-12">
+            <p>Payment method</p>
+          </div>
+          <div id="paymentoption">
+            <input type="radio" name="paylater" id="payradio" />
+            <label class="text" for="paylater">Buy now, pay later!</label>
+          </div>
+        </div>
+        <div id="submitbutton">
+          <button class="text" type="button" id="orderbutton">
+            Place Order
+          </button>
+        </div>
+      </form>
+
+      <footer id="footercontent">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <p class="email"> email:Hello@juicyfruit.com </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <i class="fab fa-facebook"></i>
+              <i class="fab fa-twitter-square"></i>
+              <i class="fab fa-instagram-square"></i>
+            </div>
+          </div>
+          
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

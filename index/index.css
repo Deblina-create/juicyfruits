@@ -1,0 +1,51 @@
+#menu {
+    
+    background-color: rgb(245, 149, 23);
+    color: black;
+}
+
+hr.solid {
+    border-top: 3px solid #bbb;
+}
+
+.highlighter {
+    background-image: url("background .jpg");
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+#exclaimation {
+    background-color: black;
+    font-size: 60px;
+    color: rgb(255, 196, 0);
+    text-align: center;
+    display: inline-block;
+    
+    opacity: 0.6;
+}
+#footercontent{
+    height: 20%;
+    background-color: rgb(245, 149, 23);
+}
+.productList{
+    background-color:rgb(250, 214, 56);
+    
+
+}
+.minicard{
+    border-color:rgb(250, 214, 56);
+    background-color:rgb(250, 214, 56);
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+#showBtn{
+    text-align: center;
+}
+.menuColor{
+    color:rgb(20, 19, 19);
+}
+#inputSearch{
+    color: green;
+}
